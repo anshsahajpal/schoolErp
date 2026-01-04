@@ -1,6 +1,6 @@
 class Teacher:
 
-    def __init__(self, teacher_id, name, date_of_birth, contact_number, designation, standard=None):
+    def __init__(self, teacher_id, name, date_of_birth, contact_number, designation, standard=""):
         self.teacher_id = teacher_id
         self.name = name
         self.date_of_birth = date_of_birth
@@ -20,5 +20,8 @@ class Teacher:
 
     def add_subject(self, subject):
         self.subjects.append(subject)
+
+    def get_subject_code_list(self):
+        return [subject.code for subject in self.subjects]
 
 
