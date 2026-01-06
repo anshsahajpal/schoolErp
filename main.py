@@ -1,77 +1,101 @@
-from subject import Subject
-from teacher import Teacher
-from os.path import exists
+import school
 
-school = {
-    "teachers": {},
-    "students": {},
-    "standards": {},
-    "subjects": {}
-}
+school.load_school_data()
 
-def add_subject_to_school():
-    code = input("Code:")
-    name = input("Name:")
-    has_practical = input("Has Practical (Y/N):")
-    grade_level = input("Grade Level:")
-    is_optional = input("Is Optional (Y/N):")
-    subject = Subject(code, name, has_practical=='Y', grade_level, is_optional=='Y')
-    school["subjects"][code] = subject
-
-
-def add_teacher_to_school():
-    tid = input("Teacher ID:")
-    name = input("Teacher Name:")
-    dob = input("DOB:")
-    contact = input("Contact Number:")
-    subject_code = input("Subject Code:")
-    designation = input("Designation:")
-    teacher = Teacher(tid, name, dob, contact, designation)
-    teacher.add_subject(school["subjects"][subject_code])
-    school["teachers"][tid] = teacher
-
-
-def save_school_data():
-    with open("teachers.csv", "w") as file:
-        file.write("Id,Name,Date of Birth, Contact, Designation, Standard, Subject\n")
-        for teacher in school["teachers"].values():
-            teacher_subjects = ":".join(teacher.get_subject_code_list())
-            teacher_data = teacher.teacher_id+","+teacher.name+","+teacher.date_of_birth+","+teacher.contact_number+","+teacher.designation+","+teacher.standard+","+teacher_subjects
-            file.write(teacher_data+"\n")
-
-    with open("subjects.csv", "w") as file:
-        file.write("Code,Name,Practical,Grade,Optional\n")
-        for subject in school["subjects"].values():
-            subject_data = subject.code+","+subject.name+","+("Y" if subject.has_practical else "N")+","+subject.grade_level+","+("Y" if subject.is_optional else "N")
-            file.write(subject_data+"\n")
+def main_menu():
+    while True:
+        print("1. Teachers")
+        print("2. Subjects")
+        print("3. Students")
+        print("4. Standards")
+        print("5. Save School Data")
+        print("6. Load School Data")
+        print("7. Show School Data")
+        print("0. Exit")
+        option = int(input("Option:"))
+        if option == 1:
+            teacher_menu()
+        elif option == 2:
+            subject_menu()
+        elif option == 3:
+            student_menu()
+        elif option == 4:
+            standard_menu()
+        elif option == 5:
+            school.save_school_data()
+        elif option == 6:
+            school.load_school_data()
+        elif option == 7:
+            print(school.school)
+        elif option == 0:
+            print("Goodbye")
+            break
+        else:
+            print("Invalid Option")
 
 
-def load_school_data():
-    if exists("subjects.csv"):
-        with open("subjects.csv", "r") as file:
-            file.readline()
-            for line in file.readlines():
-                subject_data = line.split(",")
-                subject = Subject(subject_data[0],subject_data[1], subject_data[2]=='Y', subject_data[3], subject_data[4]=='Y')
-                school["subjects"][subject_data[0]] = subject
+def teacher_menu():
+    while True:
+        print("1. Add Teacher To School")
+        print("0. Back")
+        option = int(input("Option:"))
+        if option == 1:
+            school.add_teacher_to_school()
+        elif option == 0:
+            break
 
-    print(school['subjects'])
-    if exists("teachers.csv"):
-        with open("teachers.csv", "r") as file:
-            file.readline()
-            for line in file.readlines():
-                teacher_data = line.split(",")
-                subject_code = teacher_data[6].replace("\n","")
-                teacher = Teacher(teacher_data[0], teacher_data[1], teacher_data[2], teacher_data[3], teacher_data[4], teacher_data[5])
-                teacher.add_subject(school["subjects"][subject_code])
-                school["teachers"][teacher_data[0]] = teacher
+def subject_menu():
+    while True:
+        print("1. Add Subject To School")
+        print("0. Back")
+        option = int(input("Option:"))
+        if option == 1:
+            school.add_subject_to_school()
+        elif option == 0:
+            break
+
+def student_menu():
+    while True:
+        print("1. Add Student To School")
+        print("0. Back")
+        option = int(input("Option:"))
+        if option == 1:
+            school.add_student_to_school()
+        elif option == 0:
+            break
 
 
+def standard_menu():
+    while True:
+        print("1. Add Standard To School")
+        print("2. Update Class Teacher of Standard")
+        print("3. Show Standard Details")
+        print("4. Add Subject To Standard")
+        print("0. Back")
+        option = int(input("Option:"))
+        if option == 1:
+            school.add_standard_to_school()
+        elif option == 2:
+            standard_id = input("Enter Standard Grade And Section(Ex. 1A): ")
+            standard = school.get_standard_by_id(standard_id)
+            if standard.class_teacher != "":
+                print("Current Class Teacher: ", standard.class_teacher.name)
+            new_teacher = input("Enter ID of new Class Teacher: ")
+            teacher = school.get_teacher_by_id(new_teacher)
+            standard.set_class_teacher(teacher)
+        elif option == 3:
+            standard_id = input("Enter Standard Grade And Section(Ex. 1A): ")
+            standard = school.get_standard_by_id(standard_id)
+            standard.print_standard_details()
+        elif option == 4:
+            standard_id = input("Enter Standard Grade And Section(Ex. 1A): ")
+            standard = school.get_standard_by_id(standard_id)
+            no_of_subjects_to_add = int(input("Enter No of Subjects to Add: "))
+            for i in range(no_of_subjects_to_add):
+                subject_code = input("Enter Subject Code: ")
+                subject = school.get_subject_by_id(subject_code)
+                standard.add_subject(subject)
+        elif option == 0:
+            break
 
-
-
-
-
-load_school_data()
-print(school)
-print(school["teachers"]['T1'].subjects)
+main_menu()
