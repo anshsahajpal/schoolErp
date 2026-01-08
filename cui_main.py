@@ -52,10 +52,15 @@ def teacher_menu():
 def subject_menu():
     while True:
         print("1. Add Subject To School")
+        print("2. Print Subject Details")
         print("0. Back")
         option = int(input("Option:"))
         if option == 1:
             school.add_subject_to_school()
+        elif option == 2:
+            subject_id = input("Enter Subject ID: ")
+            subject = school.get_subject_by_id(subject_id)
+            subject.print_subject_details()
         elif option == 0:
             break
 

@@ -4,7 +4,9 @@ from standard import Standard
 
 class Teacher:
 
-    def __init__(self, teacher_id, name, date_of_birth, contact_number, designation, teaches_standard=[]):
+    def __init__(self, teacher_id, name, date_of_birth, contact_number, designation, teaches_standard=None):
+        if teaches_standard is None:
+            teaches_standard = []
         self.teacher_id = teacher_id
         self.name = name
         self.date_of_birth = date_of_birth
@@ -32,11 +34,14 @@ class Teacher:
         return f"{self.teacher_id} {self.name}"
 
     def __repr__(self):
-        return f"{self.teacher_id} {self.name}"
+        return f"{self.teacher_id} {self.name} {self.subjects}"
 
     def add_subject(self, subject):
         self.subjects.append(subject)
         subject.add_teacher(self)
+
+    def set_name(self, name):
+        self.name = name
 
     def add_standard(self, standard):
         self.teaches_standard.append(standard)

@@ -1,14 +1,15 @@
 from os.path import exists
 
 class Subject:
-
-    def __init__(self, code, name, has_practical:bool, grade_level, is_optional= False, teachers = []):
+    def __init__(self, code, name, has_practical:bool, grade_level, is_optional= False, teachers_list = None):
+        if teachers_list is None:
+            teachers_list = []
         self.code = code
         self.name = name
         self.has_practical = has_practical
         self.grade_level = grade_level
         self.is_optional = is_optional
-        self.teachers = teachers
+        self.teachers = teachers_list
 
 
     def __repr__(self):
@@ -16,6 +17,18 @@ class Subject:
 
     def add_teacher(self, teacher):
         self.teachers.append(teacher)
+
+    def print_subject_details(self):
+        print(f"Code: {self.code}")
+        print(f"Name: {self.name}")
+        print(f"Grade Level: {self.grade_level}")
+        print(f"IsOptional: {self.is_optional}")
+        print(f"Lab: {self.has_practical}")
+        if len(self.teachers) > 0:
+            print("Taught By")
+            for teacher in self.teachers:
+                print(f"\tTeacher Name: {teacher.name}")
+                print(f"\tTeacher Id: {teacher.teacher_id}")
 
     @staticmethod
     def get_subject_code_list(list_of_subjects):
