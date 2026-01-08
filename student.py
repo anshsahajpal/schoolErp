@@ -20,7 +20,18 @@ class Student:
 
     def set_student_standard(self, standard):
         self.standard = standard
-        standard.students(self)
+        standard.add_student(self)
+
+    def print_student_details(self):
+        print("Enrolment number: " + str(self.enrolment_number))
+        print("Roll No: "+ str((self.standard.students.index(self)+1)))
+        print("Standard: "+ (self.standard.grade+self.standard.section))
+        print("Name: " + (self.first_name)+" "+(self.last_name))
+        print("Date of Birth: " + (self.date_of_birth))
+        print("Parent Name: " + (self.parent_name))
+        print("Parent Contact: " + (self.parent_contact))
+        print("Student Contact: " + (self.student_contact))
+        print("Admission Date: " + (self.admission_date))
 
     @staticmethod
     def get_list_of_enrolment_numbers_of_students(list_of_students):

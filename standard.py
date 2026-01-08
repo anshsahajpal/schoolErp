@@ -19,12 +19,17 @@ class Standard:
 
     def add_subject(self, subject):
         self.subjects.append(subject)
+        subject.teachers[0].add_standard(self)
 
     def set_class_teacher(self, teacher):
         self.class_teacher = teacher
 
     def add_student(self, student):
         self.students.append(student)
+
+    @staticmethod
+    def get_standard_id_list(list_of_standards):
+        return [standard.grade+standard.section for standard in list_of_standards]
 
     def print_standard_details(self):
         print("Grade: ", self.grade)

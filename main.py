@@ -37,10 +37,15 @@ def main_menu():
 def teacher_menu():
     while True:
         print("1. Add Teacher To School")
+        print("2. Print Teacher Details")
         print("0. Back")
         option = int(input("Option:"))
         if option == 1:
             school.add_teacher_to_school()
+        elif option == 2:
+            teacher_id = input("Enter Teacher ID: ")
+            teacher = school.get_teacher_by_id(teacher_id)
+            teacher.print_teacher_details()
         elif option == 0:
             break
 
@@ -57,10 +62,22 @@ def subject_menu():
 def student_menu():
     while True:
         print("1. Add Student To School")
+        print("2. Assign Standard To Student")
+        print("3. Show Student Details")
         print("0. Back")
         option = int(input("Option:"))
         if option == 1:
             school.add_student_to_school()
+        elif option == 2:
+            standard_id = input("Enter Standard Grade And Section(Ex. 1A): ")
+            standard = school.get_standard_by_id(standard_id)
+            student_id = input("Enter Student ID: ")
+            student = school.get_student_by_id(student_id)
+            student.set_student_standard(standard)
+        elif option == 3:
+            student_id = input("Enter Student ID: ")
+            student = school.get_student_by_id(student_id)
+            student.print_student_details()
         elif option == 0:
             break
 

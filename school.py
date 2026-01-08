@@ -49,7 +49,11 @@ def add_student_to_school():
     student_contact = input("Student Contact")
     enrolment_number = str(uuid.uuid4())
     admission_date = input("Admission Date")
+    standard = input("Standard (Can be empty or grade and section ex. 1A):")
     student = Student(first_name,last_name,date_of_birth,parent_name,parent_contact,student_contact,enrolment_number, admission_date)
+    if standard != "":
+        standard = school["standards"][standard]
+        student.set_student_standard(standard)
     school["students"][enrolment_number] = student
 
 
@@ -77,3 +81,6 @@ def get_teacher_by_id(teacher_id):
 
 def get_subject_by_id(subject_code):
     return school["subjects"][subject_code]
+
+def get_student_by_id(student_code):
+    return school["students"][student_code]
