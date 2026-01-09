@@ -2,13 +2,15 @@ from standard import Standard
 from student import Student
 from subject import Subject
 from teacher import Teacher
+from user import User
 import uuid
 
 school = {
     "teachers": {},
     "students": {},
     "standards": {},
-    "subjects": {}
+    "subjects": {},
+    "users":{}
 }
 
 def add_subject_to_school():
@@ -62,6 +64,7 @@ def save_school_data():
     Subject.save_all_subjects(school["subjects"].values())
     Standard.save_all_standards(school["standards"].values())
     Student.save_all_students(school["students"].values())
+    User.save_all_users(school["users"].values())
 
 def load_school_data():
     Subject.load_all_subjects(school)
@@ -72,6 +75,7 @@ def load_school_data():
     print(school['standards'])
     Student.load_all_students(school)
     print(school['students'])
+    User.load_users(school)
 
 def get_standard_by_id(standard_id):
     return school["standards"][standard_id]
