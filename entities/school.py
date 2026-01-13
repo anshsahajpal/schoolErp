@@ -1,8 +1,8 @@
-from standard import Standard
-from student import Student
-from subject import Subject
-from teacher import Teacher
-from user import User
+from entities.standard import Standard
+from entities.student import Student
+from entities.subject import Subject
+from entities.teacher import Teacher
+from entities.user import User
 import uuid
 
 school = {

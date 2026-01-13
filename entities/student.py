@@ -39,7 +39,7 @@ class Student:
 
     @staticmethod
     def save_all_students(students: List[Student]):
-        with open("students.csv", "w") as file:
+        with open("./data/students.csv", "w") as file:
             file.write("first_name, last_name, date_of_birth, parent_name, parent_contact, student_contact,enrolment_number, admission_date, standard\n")
             for student in students:
                 student_data = student.first_name + "," + student.last_name + "," + student.date_of_birth + "," + student.parent_name + "," + student.parent_contact + "," + student.student_contact + "," +student.enrolment_number+ "," + student.admission_date + "," + ("" if student.standard == "" else student.standard.grade+student.standard.section)
@@ -47,8 +47,8 @@ class Student:
 
     @staticmethod
     def load_all_students(school):
-        if exists("students.csv"):
-            with open("students.csv", "r") as file:
+        if exists("./data/students.csv"):
+            with open("./data/students.csv", "r") as file:
                 file.readline()
                 for line in file.readlines():
                     student_data = line.split(",")

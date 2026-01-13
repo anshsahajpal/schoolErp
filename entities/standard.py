@@ -1,7 +1,7 @@
 from typing import List
 from os.path import exists
-from student import Student
-from subject import Subject
+from entities.student import Student
+from entities.subject import Subject
 
 class Standard:
 
@@ -54,7 +54,7 @@ class Standard:
 
     @staticmethod
     def save_all_standards(standards: List[Standard]):
-        with open("standards.csv", "w") as file:
+        with open("./data/standards.csv", "w") as file:
             file.write("Grade,Section,Class Teacher,Room No,Students, Subjects\n")
             for standard in standards:
                 standard_subjects = ":".join(Subject.get_subject_code_list(standard.subjects))
@@ -64,8 +64,8 @@ class Standard:
 
     @staticmethod
     def load_all_standards(school):
-        if exists("standards.csv"):
-            with open("standards.csv", "r") as file:
+        if exists("./data/standards.csv"):
+            with open("./data/standards.csv", "r") as file:
                 file.readline()
                 for line in file.readlines():
                     standard_data = line.split(",")

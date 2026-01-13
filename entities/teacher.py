@@ -1,6 +1,6 @@
 from os.path import exists
-from subject import Subject
-from standard import Standard
+from entities.subject import Subject
+from entities.standard import Standard
 
 class Teacher:
 
@@ -48,7 +48,7 @@ class Teacher:
 
     @staticmethod
     def save_all_teachers(teachers):
-        with open("teachers.csv", "w") as file:
+        with open("./data/teachers.csv", "w") as file:
             file.write("Id,Name,Date of Birth, Contact, Designation, Teaches Standard, Subject\n")
             for teacher in teachers:
                 teacher_subjects = ":".join(Subject.get_subject_code_list(teacher.subjects))
@@ -58,8 +58,8 @@ class Teacher:
 
     @staticmethod
     def load_all_teachers(school):
-        if exists("teachers.csv"):
-            with open("teachers.csv", "r") as file:
+        if exists("./data/teachers.csv"):
+            with open("./data/teachers.csv", "r") as file:
                 file.readline()
                 for line in file.readlines():
                     teacher_data = line.split(",")

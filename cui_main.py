@@ -1,4 +1,4 @@
-import school
+from entities import school
 
 school.load_school_data()
 

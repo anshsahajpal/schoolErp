@@ -1,5 +1,6 @@
 import tkinter as tk
-import school
+from entities import school
+
 
 class LoginWindow(tk.Tk):
     def __init__(self):

@@ -10,7 +10,7 @@ class User:
 
     @staticmethod
     def save_users(user_list):
-        with open("users.csv", "w") as f:
+        with open("./data/users.csv", "w") as f:
             f.write("username,password,email,ph_no,user_type\n")
             for user in user_list:
                 user_data = f"{user.username_text},{user.password_text},{user.email},{user.ph_no},{user.user_type}\n"
@@ -18,8 +18,8 @@ class User:
 
     @staticmethod
     def load_users(school):
-        if exists("users.csv"):
-            with open("users.csv", "r") as f:
+        if exists("./data/users.csv"):
+            with open("./data/users.csv", "r") as f:
                 f.readline()
                 for line in f.readlines():
                     user_data = line.split(",")

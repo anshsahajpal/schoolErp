@@ -36,7 +36,7 @@ class Subject:
 
     @staticmethod
     def save_all_subjects(subjects):
-        with open("subjects.csv", "w") as file:
+        with open("./data/subjects.csv", "w") as file:
             file.write("Code,Name,Practical,Grade,Optional\n")
             for subject in subjects:
                 subject_data = subject.code + "," + subject.name + "," + (
@@ -46,8 +46,8 @@ class Subject:
 
     @staticmethod
     def load_all_subjects(school):
-        if exists("subjects.csv"):
-            with open("subjects.csv", "r") as file:
+        if exists("./data/subjects.csv"):
+            with open("./data/subjects.csv", "r") as file:
                 file.readline()
                 for line in file.readlines():
                     subject_data = line.split(",")
