@@ -54,5 +54,6 @@ class Student:
                     student_data = line.split(",")
                     student = Student(student_data[0], student_data[1], student_data[2], student_data[3], student_data[4], student_data[5], student_data[6], student_data[7])
                     if student_data[8]!="\n":
+                        print('Adding')
                         student.set_student_standard(school['standards'][student_data[8].replace("\n","")])
                     school['students'][student.enrolment_number] = student
